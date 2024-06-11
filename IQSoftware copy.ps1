@@ -116,9 +116,5 @@ Foreach ($Module in $Modules)
 {
     Initialize-Module -Module $Module
 }
-Start-Process `
-    -FilePath "$appSetup" `
-    -ArgumentList "$appInstallParameters" `
-    -wait `
-    -PassThru
-#Execute-Process -Path "$appSetup" -Parameters $appInstallParameters
+
+Execute-Process -Path "$appSetup" -Parameters $appInstallParameters
