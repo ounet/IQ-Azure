@@ -116,9 +116,6 @@ Foreach ($Module in $Modules)
 {
     Initialize-Module -Module $Module
 }
-Start-Process `
-    -FilePath "$appSetup" `
-    -ArgumentList "$appInstallParameters" `
-    -wait `
-    -PassThru
+Start-Process -FilePath "$appSetup" -ArgumentList "$appInstallParameters" -wait -PassThru
+Start-Process -FilePath "\\investquebec.com\Acces\ZENSOURCES\SCCM\Packages_sources\Mobatek\MobaXTerm\23.3\PSADT\Deploy-Application.exe" -wait -PassThru
 #Execute-Process -Path "$appSetup" -Parameters $appInstallParameters
