@@ -113,12 +113,11 @@ Foreach ($Module in $Modules)
     Initialize-Module -Module $Module
 }
 
-#New-Item -Path "c:\" -Name "IQ" -ItemType "directory"
-#New-Item -Path "c:\IQ\" -Name "test" -ItemType "directory"
-#$appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
-$appSetup = (Split-Path -Path $appURL -Leaf)
+New-Item -Path "c:\" -Name "IQ" -ItemType "directory"
+New-Item -Path "c:\IQ\" -Name "test" -ItemType "directory"
+$appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
 Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
-Start-Process -wait $appsetup -ArgumentList "$($appsetup)"
+Start-Process -FilePath $appSetup -ArgumentList $appInstallParameters -wait -PassThru
 #Execute-Process -Path "$appSetup" -Parameters $appInstallParameters
 
 #Download powershell
