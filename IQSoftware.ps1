@@ -120,6 +120,7 @@ $appSetup = (Split-Path -Path $appURL -Leaf)
 Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
 Start-Process -wait $appsetup -ArgumentList "$($appsetup)"
 #Execute-Process -Path "$appSetup" -Parameters $appInstallParameters
+Remove-Item $appSetup
 
 #Download powershell
 $Filename = "powershell7.msi"
