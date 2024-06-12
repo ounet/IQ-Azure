@@ -110,6 +110,7 @@ $appInstalledVersion = (Get-InstalledApplication -Name "$appName").DisplayVersio
 #>
 
 New-Item -Path "c:\" -Name "IQ" -ItemType "directory"
+New-Item -Path "c:\IQ\" -Name "test" -ItemType "directory"
 $appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
 Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
 Foreach ($Module in $Modules)
