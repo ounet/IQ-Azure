@@ -44,9 +44,10 @@ $Filename1 = "powershell7.msi"
 Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/PowerShell-7.4.1-win-x64.msi" -OutFile "$LocalWVDpath$Filename1"
 
 #Install powershell silently
+Write-Host "AVD AIB Customization - Install Powershell 7 : Starting to install powershell 7"
 $fslogix_deploy_status = Start-Process `
     -FilePath "msiexec.exe" `
-    -ArgumentList "/package $($Filename1) /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1 ADD_PATH=1" `
+    -ArgumentList "/package $($LocalWVDpath\$Filename1) /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1 ADD_PATH=1" `
     -Wait
  
 
