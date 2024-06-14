@@ -41,7 +41,7 @@ $fslogix_deploy_status = Start-Process `
 
 #Download powershell
 $Filename1 = "powershell7.msi"
-Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/PowerShell-7.4.1-win-x64.msi" -OutFile "$LocalWVDpath\$Filename"
+Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/PowerShell-7.4.1-win-x64.msi" -OutFile "$LocalWVDpath\$Filename1"
 
 #Install powershell silently
 $fslogix_deploy_status = Start-Process `
