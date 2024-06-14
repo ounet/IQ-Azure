@@ -4,17 +4,11 @@ function Write-Log {
         [string]$Message
     )
      $timestamp = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
-     "$timestamp - $Message" | Out-File -FilePath Z:\avdcustomimagetemplateslogs\avdcit.logs -Append
+     "$timestamp - $Message" | Out-File -FilePath \\iqpocstorage.file.core.windows.net\avdcustomimagetemplateslogs\avdcit.logs -Append
 }
 
-
-#Read more: https://www.sharepointdiary.com/2019/06/create-log-file-in-powershell-script.html#ixzz8d884l4CP
-
-#Read more: https://www.sharepointdiary.com/2019/06/create-log-file-in-powershell-script.html#ixzz8d86uxBye
-
-
 <#logs files#>
-#$log = "\\iqpocstorage.file.core.windows.net\avdcustomimagetemplateslogs\avdcit.logs"
+
 Write-Log "mounting z drive"
 
 #Download notepad++
