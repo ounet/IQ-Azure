@@ -11,6 +11,9 @@ function Write-Log {
 
 Write-Log "mounting z drive"
 
+New-Item -Path "c:\" -Name "IQ" -ItemType "directory"
+Write-Log "create iq directories"
+
 #Download notepad++
 $Filename = "npp.8.6.8.Installer.x64.exe"
 Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.6.8/npp.8.6.8.Installer.x64.exe" -OutFile $Filename
