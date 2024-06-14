@@ -1,8 +1,29 @@
+
+function Write-Log {
+    param(
+        [string]$Message
+    )
+     $timestamp = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+     "$timestamp - $Message" | Out-File -FilePath Z:\avdcustomimagetemplateslogs\avdcit.logs -Append
+}
+
+
+#Read more: https://www.sharepointdiary.com/2019/06/create-log-file-in-powershell-script.html#ixzz8d884l4CP
+
+#Read more: https://www.sharepointdiary.com/2019/06/create-log-file-in-powershell-script.html#ixzz8d86uxBye
+
+
+<#logs files#>
+#$log = "\\iqpocstorage.file.core.windows.net\avdcustomimagetemplateslogs\avdcit.logs"
+Write-Log "mounting z drive"
+
 #Download notepad++
 $Filename = "npp.8.6.8.Installer.x64.exe"
 Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.6.8/npp.8.6.8.Installer.x64.exe" -OutFile $Filename
+Write-Log "Download $Filename"
 #Install notepad++
 Start-Process $Filename -ArgumentList "/S" -Wait -PassThru
+Write-Log "installation de $Filename"
 
 #Remove install file
 Remove-Item $Filename
