@@ -19,7 +19,7 @@ $Filename = "npp.8.6.8.Installer.x64.exe"
 Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.6.8/npp.8.6.8.Installer.x64.exe" -OutFile $Filename
 Write-Log "Download $Filename"
 #Install notepad++
-Start-Process $Filename -ArgumentList "/S" -Wait -PassThru
+Start-Process $Filename -ArgumentList "/S" -Wait
 Write-Log "installation de $Filename"
 
 #Remove install file
