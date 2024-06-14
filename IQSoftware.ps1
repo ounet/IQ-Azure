@@ -28,7 +28,7 @@ Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/notepad-plus-plus/no
 
 #Install notepad++
 #########################
-Write-Host "AVD AIB Customization - Install FSLogix : Starting to install notepad++"
+Write-Host "AVD AIB Customization - Install Notepad++ : Starting to install notepad++"
 $fslogix_deploy_status = Start-Process `
     -FilePath "$LocalWVDpath\$Filename" `
     -ArgumentList '/S' `
@@ -41,7 +41,7 @@ $fslogix_deploy_status = Start-Process `
 
 #Download powershell
 $Filename1 = "powershell7.msi"
-Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/PowerShell-7.4.1-win-x64.msi" -OutFile "$LocalWVDpath\$Filename1"
+Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/PowerShell-7.4.1-win-x64.msi" -OutFile "$LocalWVDpath$Filename1"
 
 #Install powershell silently
 $fslogix_deploy_status = Start-Process `
