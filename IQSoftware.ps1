@@ -117,41 +117,58 @@ $LocalWVDpath            = "c:\IQ\"
 $FSInstaller             = 'npp.8.6.8.Installer.x64.exe'
 $templateFilePathFolder = "C:\AVDImage"
 
-######################################### test ###############################
-function add-software{
-    [CmdletBinding()]
-    Param
-    (
-        [Parameter(Mandatory = $true)]
-        [string]$namesoftware,
-        [string]$appArchitecture
-    )
-
-    $evergreen = Get-EvergreenApp -Name NotepadPlusPLus | Where-Object { $_.Architecture -eq $appArchitecture -and $_.Type -eq "exe" }
-    $appURL = $Evergreen.URI
-    $appSetup = Split-Path -Path $appURL -Leaf
-    $appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
-    Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $localwvdpath$appSetup
-    return $appSetup
-}
 
 ########## Execution ########
 
 #############################
-$filename = add-software -namesoftware "NotepadPlusPLus" -appArchitecture "x64"
+$appurl = (Get-EvergreenApp -Name "NotepadPlusPLus" | Where-Object {$_.architecture -eq "x64" -and $_.type -eq "exe"}).uri
+$appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
+Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
 $appInstallParameters = "/S"
-Write-Host "AVD AIB Customization - Install $filename : Starting to install notepad++"    
+Write-Host "AVD AIB Customization - Install $appSetup"    
 $fslogix_deploy_status = Start-Process `
-    -FilePath "$filename" `
+    -FilePath "$appsetup" `
     -ArgumentList "$appInstallParameters" `
     -Wait `
     -Passthru
 
-$filename = add-software -namesoftware "powershell7" -appArchitecture "x64"
+
+$appurl = (Get-EvergreenApp -Name "powershell7" | Where-Object {$_.architecture -eq "x64" -and $_.type -eq "exe"}).uri
+$appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
+Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
 #Install powershell silently
-Write-Host "AVD AIB Customization - Install Powershell 7 : Starting to install powershell 7"
+Write-Host "AVD AIB Customization - Install $appsetup"
 $fslogix_deploy_status = Start-Process `
     -FilePath "msiexec.exe" `
-    -ArgumentList "/package $($filename) /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1 ADD_PATH=1" `
+    -ArgumentList "/package $($appsetup) /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1 REGISTER_MANIFEST=1 USE_MU=1 ENABLE_MU=1 ADD_PATH=1" `
     -Wait
- 
+
+#appurl = (Get-EvergreenApp -Name "AdobeAcrobatProStdDC" | Where-Object {$_.architecture -eq "x64" -and $_.sku -eq "Standard"}).uri
+#$appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)  
+#Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
+
+
+$appurl = (Get-EvergreenApp -Name "winscp" | Where-Object {$_.architecture -eq "x86" -and $_.type -eq "exe"}).uri
+$appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
+Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
+#https://winscp.net/eng/docs/installation
+$fslogix_deploy_status = Start-Process `
+    -FilePath "$appsetup" `
+    -ArgumentList "/SILENT /ALLUSER /NORESTART"`
+    -Wait
+
+$appurl = (Get-EvergreenApp -Name "putty" | Where-Object {$_.architecture -eq "x64" -and $_.type -eq "msi"}).uri
+$appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
+Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
+$fslogix_deploy_status = Start-Process `
+    -FilePath "$appsetup" `
+    -ArgumentList "/allusers /silent" `
+    -Wait
+
+$appurl = get-evergreenApp -Name "Microsoftonedrive" | Where-Object {$_.architecture -eq "x64" -and $_.ring -eq "enterprise"}
+$appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
+Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
+$fslogix_deploy_status = Start-Process `
+    -FilePath "$appsetup" `
+    -ArgumentList "/allusers /silent" `
+    -Wait
