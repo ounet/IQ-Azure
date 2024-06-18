@@ -162,8 +162,8 @@ $appurl = (Get-EvergreenApp -Name "putty" | Where-Object {$_.architecture -eq "x
 $appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
 Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
 $fslogix_deploy_status = Start-Process `
-    -FilePath "$appsetup" `
-    -ArgumentList "/allusers /silent" `
+    -FilePath "msiexec.exe" `
+    -ArgumentList "/package $($appsetup) /allusers /silent" `
     -Wait
 
 $appurl = get-evergreenApp -Name "Microsoftonedrive" | Where-Object {$_.architecture -eq "x64" -and $_.ring -eq "enterprise"}
