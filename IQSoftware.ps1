@@ -153,6 +153,7 @@ $appurl = (Get-EvergreenApp -Name "winscp" | Where-Object {$_.architecture -eq "
 $appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
 Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
 #https://winscp.net/eng/docs/installation
+Write-Host "AVD AIB Customization - Install $appsetup"
 $fslogix_deploy_status = Start-Process `
     -FilePath "$appsetup" `
     -ArgumentList "/SILENT /ALLUSER /NORESTART"`
@@ -161,6 +162,7 @@ $fslogix_deploy_status = Start-Process `
 $appurl = (Get-EvergreenApp -Name "putty" | Where-Object {$_.architecture -eq "x64" -and $_.type -eq "msi"}).uri
 $appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
 Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
+Write-Host "AVD AIB Customization - Install $appsetup"
 $fslogix_deploy_status = Start-Process `
     -FilePath "msiexec.exe" `
     -ArgumentList "/package $($appsetup) /allusers /silent" `
@@ -169,6 +171,7 @@ $fslogix_deploy_status = Start-Process `
 $appurl = get-evergreenApp -Name "Microsoftonedrive" | Where-Object {$_.architecture -eq "x64" -and $_.ring -eq "enterprise"}
 $appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
 Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
+Write-Host "AVD AIB Customization - Install $appsetup"
 $fslogix_deploy_status = Start-Process `
     -FilePath "$appsetup" `
     -ArgumentList "/allusers /silent" `
