@@ -133,7 +133,8 @@ $fslogix_deploy_status = Start-Process `
     -Passthru
 
 
-$appurl = (Get-EvergreenApp -Name "powershell7" | Where-Object {$_.architecture -eq "x64" -and $_.type -eq "exe"}).uri
+#$appurl = (Get-EvergreenApp -Name "powershell7" | Where-Object {$_.architecture -eq "x64" -and $_.type -eq "exe"}).uri
+$appurl = "https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/PowerShell-7.4.1-win-x64.msi"
 $appSetup = "c:\IQ\"+ (Split-Path -Path $appURL -Leaf)
 Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
 #Install powershell silently
