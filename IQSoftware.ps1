@@ -156,7 +156,7 @@ Invoke-WebRequest -UseBasicParsing -Uri $appURL -OutFile $appSetup
 Write-Host "AVD AIB Customization - Install $appsetup"
 $fslogix_deploy_status = Start-Process `
     -FilePath "$appsetup" `
-    -ArgumentList "/SILENT /ALLUSER /NORESTART"`
+    -ArgumentList "/SILENT /ALLUSERS /NORESTART"`
     -Wait
 
 $appurl = (Get-EvergreenApp -Name "putty" | Where-Object {$_.architecture -eq "x64" -and $_.type -eq "msi"}).uri
